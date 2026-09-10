@@ -1,0 +1,207 @@
+{
+  "scaffold_version": "1.0",
+  "target": "python-temporal",
+  "process": {
+    "id": "gate-probe-flip",
+    "name": "Gate Probe Flip",
+    "description": "resolve_read_workspace -> create_feature_branch -> op_anthropic_develop_code"
+  },
+  "source": {
+    "export_hash": "<computed-during-sync>",
+    "export_version": "2026-09-10T17:54:28.922171",
+    "last_sync": "2026-09-10T17:54:28.922171"
+  },
+  "external_change_id": "gpflip1",
+  "source_export": "exports/gate_probe_flip-2026-09-10.json",
+  "files": {
+    "constants.py": {
+      "file_hash": "sha256:0fd5e59fcbe749dcbab640544be33d597cd60f744fc96c34ae80c7286d9cdb2a",
+      "implementation_status": "READY",
+      "managed": true,
+      "generated_at": "2026-09-10T17:54:28.922171",
+      "implemented_at": null
+    },
+    "models/artifacts.py": {
+      "file_hash": "sha256:c526a9fdee0979ed3d221f47e82f4eb705d6c47e66e3ea877aca5530264d89b5",
+      "implementation_status": "READY",
+      "managed": true,
+      "generated_at": "2026-09-10T17:54:28.922171",
+      "implemented_at": null
+    },
+    "activities/resolve_read_workspace_stepreso.py": {
+      "file_hash": "sha256:1d6f75f73628dbc307cb7f880c5eb515e7985b73cdb68ac807491afb8ebfb477",
+      "implementation_status": "READY",
+      "managed": false,
+      "generated_at": "2026-09-10T17:54:28.922171",
+      "implemented_at": null
+    },
+    "activities/create_feature_branch_stepbran.py": {
+      "file_hash": "sha256:59ab4d78ab926a79df6feeabfb657fcf6846530b1165c409de22f4eab2286bf0",
+      "implementation_status": "READY",
+      "managed": false,
+      "generated_at": "2026-09-10T17:54:28.922171",
+      "implemented_at": null
+    },
+    "activities/gate_probe_code_stepcode.py": {
+      "file_hash": "sha256:d93bc6886ccbb7d277f961208f605b1b5c40431a500be234c090507adf22b321",
+      "implementation_status": "READY",
+      "managed": false,
+      "generated_at": "2026-09-10T17:54:28.922171",
+      "implemented_at": null
+    },
+    "workflow.py": {
+      "file_hash": "sha256:2f0492a63ea80e468291fa5377c12144872bc266ce5d89bc46eedcca0b627a04",
+      "implementation_status": "READY",
+      "managed": false,
+      "generated_at": "2026-09-10T17:54:28.922171",
+      "implemented_at": null
+    },
+    "workflow_registry.py": {
+      "file_hash": "sha256:c0b73a35ca88cad10d336c2b445d416d480173ee4caa2b358d0cb8f6b91c8ad8",
+      "implementation_status": "READY",
+      "managed": true,
+      "generated_at": "2026-09-10T17:54:28.922171",
+      "implemented_at": null
+    }
+  },
+  "entities": {
+    "steps": {
+      "step-resolve": {
+        "name": "Resolve Read Workspace",
+        "file": "activities/resolve_read_workspace_stepreso.py",
+        "constant": "STEP_RESOLVE_READ_WORKSPACE",
+        "executor_type": "SYSTEM",
+        "implementation_type": "CATALOG_DISPATCHER",
+        "definition_hash": null,
+        "integration_source_system_id": null,
+        "integration_source_system_name": null
+      },
+      "step-branch": {
+        "name": "Create Feature Branch",
+        "file": "activities/create_feature_branch_stepbran.py",
+        "constant": "STEP_CREATE_FEATURE_BRANCH",
+        "executor_type": "SYSTEM",
+        "implementation_type": "CATALOG_DISPATCHER",
+        "definition_hash": null,
+        "integration_source_system_id": null,
+        "integration_source_system_name": null
+      },
+      "step-code": {
+        "name": "Gate Probe Code",
+        "file": "activities/gate_probe_code_stepcode.py",
+        "constant": "STEP_GATE_PROBE_CODE",
+        "executor_type": "AI",
+        "implementation_type": "CATALOG_DISPATCHER",
+        "definition_hash": null,
+        "integration_source_system_id": null,
+        "integration_source_system_name": null
+      }
+    },
+    "decisions": {},
+    "artifacts": {
+      "art-resolve-repo-key": {
+        "name": "Resolve Read Workspace - Repository Key",
+        "file": "models/artifacts.py",
+        "class_name": "ResolveReadWorkspaceRepositoryKey",
+        "definition_hash": null
+      },
+      "art-resolve-branch-base": {
+        "name": "Resolve Read Workspace - Base Branch Override",
+        "file": "models/artifacts.py",
+        "class_name": "ResolveReadWorkspaceBaseBranchOverride",
+        "definition_hash": null
+      },
+      "art-resolve-wd": {
+        "name": "Resolve Read Workspace - Working Directory",
+        "file": "models/artifacts.py",
+        "class_name": "ResolveReadWorkspaceWorkingDirectory",
+        "definition_hash": null
+      },
+      "art-resolve-repo-key-out": {
+        "name": "Resolve Read Workspace - Repository Key (out)",
+        "file": "models/artifacts.py",
+        "class_name": "ResolveReadWorkspaceRepositoryKey",
+        "definition_hash": null
+      },
+      "art-resolve-base-branch": {
+        "name": "Resolve Read Workspace - Base Branch",
+        "file": "models/artifacts.py",
+        "class_name": "ResolveReadWorkspaceBaseBranch",
+        "definition_hash": null
+      },
+      "art-resolve-base-sha": {
+        "name": "Resolve Read Workspace - Base SHA",
+        "file": "models/artifacts.py",
+        "class_name": "ResolveReadWorkspaceBaseSHA",
+        "definition_hash": null
+      },
+      "art-branch-label": {
+        "name": "Create Feature Branch - Context Label",
+        "file": "models/artifacts.py",
+        "class_name": "CreateFeatureBranchContextLabel",
+        "definition_hash": null
+      },
+      "art-branch-ctx-id": {
+        "name": "Create Feature Branch - Context ID",
+        "file": "models/artifacts.py",
+        "class_name": "CreateFeatureBranchContextID",
+        "definition_hash": null
+      },
+      "art-branch-allow-reuse": {
+        "name": "Create Feature Branch - Allow Branch Reuse",
+        "file": "models/artifacts.py",
+        "class_name": "CreateFeatureBranchAllowBranchReuse",
+        "definition_hash": null
+      },
+      "art-branch-wd": {
+        "name": "Create Feature Branch - Working Directory",
+        "file": "models/artifacts.py",
+        "class_name": "CreateFeatureBranchWorkingDirectory",
+        "definition_hash": null
+      },
+      "art-branch-name": {
+        "name": "Create Feature Branch - Branch Name",
+        "file": "models/artifacts.py",
+        "class_name": "CreateFeatureBranchBranchName",
+        "definition_hash": null
+      },
+      "art-branch-repo-key": {
+        "name": "Create Feature Branch - Repository Key",
+        "file": "models/artifacts.py",
+        "class_name": "CreateFeatureBranchRepositoryKey",
+        "definition_hash": null
+      },
+      "art-code-task": {
+        "name": "Gate Probe Code - Task",
+        "file": "models/artifacts.py",
+        "class_name": "GateProbeCodeTask",
+        "definition_hash": null
+      },
+      "art-code-success": {
+        "name": "Gate Probe Code - Success",
+        "file": "models/artifacts.py",
+        "class_name": "GateProbeCodeSuccess",
+        "definition_hash": null
+      },
+      "art-code-output": {
+        "name": "Gate Probe Code - Output",
+        "file": "models/artifacts.py",
+        "class_name": "GateProbeCodeOutput",
+        "definition_hash": null
+      },
+      "art-code-commit": {
+        "name": "Gate Probe Code - Commit SHA",
+        "file": "models/artifacts.py",
+        "class_name": "GateProbeCodeCommitSHA",
+        "definition_hash": null
+      },
+      "art-code-is-stuck": {
+        "name": "Gate Probe Code - Is Stuck",
+        "file": "models/artifacts.py",
+        "class_name": "GateProbeCodeIsStuck",
+        "definition_hash": null
+      }
+    }
+  },
+  "routing": {}
+}

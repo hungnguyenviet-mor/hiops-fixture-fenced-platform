@@ -1,0 +1,738 @@
+{
+  "bundle_version": "1.0",
+  "exported_at": "2026-09-10T00:00:00Z",
+  "process": {
+    "id": "gate-probe",
+    "name": "Gate Probe",
+    "description": "Epic #841 row 21 harness: one mutating agent step on petclinic so the readiness gate runs live."
+  },
+  "process_owner_role": null,
+  "change": {
+    "id": "gateprobe1",
+    "name": "Initial version",
+    "description": "resolve_read_workspace -> create_feature_branch -> op_anthropic_develop_code",
+    "owner": {
+      "name": "Epic 841 harness",
+      "email": "owner@test.local"
+    },
+    "sponsor": {
+      "name": "Epic 841 harness",
+      "email": "owner@test.local"
+    }
+  },
+  "scope": {
+    "summary": "Live readiness-gate harness",
+    "changed_entities": []
+  },
+  "design": {
+    "steps": [
+      {
+        "lineage_id": "step-resolve",
+        "name": "Resolve Read Workspace",
+        "description": "Session worktree for petclinic at main",
+        "executor_type": "SYSTEM",
+        "executor_actor_role": null,
+        "accountable_actor_role": null,
+        "is_entry_point": true,
+        "is_exit_point": false,
+        "parent_lineage_id": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "integration_source_system_id": null,
+        "integration_source_system_nm": null,
+        "catalog_activity_key": "resolve_read_workspace",
+        "abstract_key": null,
+        "execution_type": "agent_context_resolver",
+        "config_json": null,
+        "agent_process_key": null,
+        "agent_skills": [],
+        "chat_allowed_platform_actions": [],
+        "execution_mode": null,
+        "step_prompt": null,
+        "trigger_type": null,
+        "trigger_config": null,
+        "task_type": null,
+        "chat_prompt_key": null,
+        "chat_agent_activity_key": null,
+        "assignment_mode": null,
+        "assignment_step_input_key": null,
+        "source_pattern_key": null,
+        "sla_policy": null,
+        "step_timeout_minutes": null,
+        "router_branches": null,
+        "router_default_outcome": null,
+        "router_on_error": null,
+        "split_config": null,
+        "split_scope_id": null,
+        "transform_config": null,
+        "inputs": [
+          {
+            "lineage_id": "in-resolve-repo-key",
+            "artifact_lineage_id": "art-resolve-repo-key",
+            "artifact_name": "Resolve Read Workspace - Repository Key",
+            "sequence": 0,
+            "is_required": true,
+            "activity_field_key": "repo_key",
+            "resolution_type": "expression",
+            "value_expression": "petclinic"
+          },
+          {
+            "lineage_id": "in-resolve-branch-base",
+            "artifact_lineage_id": "art-resolve-branch-base",
+            "artifact_name": "Resolve Read Workspace - Base Branch Override",
+            "sequence": 1,
+            "is_required": false,
+            "activity_field_key": "branch_base",
+            "resolution_type": "expression",
+            "value_expression": "main"
+          }
+        ],
+        "outputs": [
+          {
+            "lineage_id": "out-resolve-wd",
+            "artifact_lineage_id": "art-resolve-wd",
+            "artifact_name": "Resolve Read Workspace - Working Directory",
+            "sequence": 0,
+            "activity_field_key": "working_directory",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-resolve-repo-key",
+            "artifact_lineage_id": "art-resolve-repo-key-out",
+            "artifact_name": "Resolve Read Workspace - Repository Key (out)",
+            "sequence": 1,
+            "activity_field_key": "repo_key",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-resolve-base-branch",
+            "artifact_lineage_id": "art-resolve-base-branch",
+            "artifact_name": "Resolve Read Workspace - Base Branch",
+            "sequence": 2,
+            "activity_field_key": "base_branch",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-resolve-base-sha",
+            "artifact_lineage_id": "art-resolve-base-sha",
+            "artifact_name": "Resolve Read Workspace - Base SHA",
+            "sequence": 3,
+            "activity_field_key": "base_sha",
+            "is_passthrough": false
+          }
+        ],
+        "metrics": []
+      },
+      {
+        "lineage_id": "step-branch",
+        "name": "Create Feature Branch",
+        "description": "Feature branch gate-probe/<probe id>",
+        "executor_type": "SYSTEM",
+        "executor_actor_role": null,
+        "accountable_actor_role": null,
+        "is_entry_point": false,
+        "is_exit_point": false,
+        "parent_lineage_id": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "integration_source_system_id": null,
+        "integration_source_system_nm": null,
+        "catalog_activity_key": "create_feature_branch",
+        "abstract_key": null,
+        "execution_type": "agent_context_resolver",
+        "config_json": null,
+        "agent_process_key": null,
+        "agent_skills": [],
+        "chat_allowed_platform_actions": [],
+        "execution_mode": null,
+        "step_prompt": null,
+        "trigger_type": null,
+        "trigger_config": null,
+        "task_type": null,
+        "chat_prompt_key": null,
+        "chat_agent_activity_key": null,
+        "assignment_mode": null,
+        "assignment_step_input_key": null,
+        "source_pattern_key": null,
+        "sla_policy": null,
+        "step_timeout_minutes": null,
+        "router_branches": null,
+        "router_default_outcome": null,
+        "router_on_error": null,
+        "split_config": null,
+        "split_scope_id": null,
+        "transform_config": null,
+        "inputs": [
+          {
+            "lineage_id": "in-branch-wd",
+            "artifact_lineage_id": "art-resolve-wd",
+            "artifact_name": "Resolve Read Workspace - Working Directory",
+            "sequence": 0,
+            "is_required": true,
+            "activity_field_key": "working_directory",
+            "resolution_type": "manual",
+            "value_expression": null
+          },
+          {
+            "lineage_id": "in-branch-repo-key",
+            "artifact_lineage_id": "art-resolve-repo-key-out",
+            "artifact_name": "Resolve Read Workspace - Repository Key (out)",
+            "sequence": 1,
+            "is_required": true,
+            "activity_field_key": "repo_key",
+            "resolution_type": "manual",
+            "value_expression": null
+          },
+          {
+            "lineage_id": "in-branch-label",
+            "artifact_lineage_id": "art-branch-label",
+            "artifact_name": "Create Feature Branch - Context Label",
+            "sequence": 2,
+            "is_required": true,
+            "activity_field_key": "context_label",
+            "resolution_type": "expression",
+            "value_expression": "gate-probe"
+          },
+          {
+            "lineage_id": "in-branch-ctx-id",
+            "artifact_lineage_id": "art-branch-ctx-id",
+            "artifact_name": "Create Feature Branch - Context ID",
+            "sequence": 3,
+            "is_required": true,
+            "activity_field_key": "context_id",
+            "resolution_type": "expression",
+            "value_expression": "probe-001"
+          },
+          {
+            "lineage_id": "in-branch-allow-reuse",
+            "artifact_lineage_id": "art-branch-allow-reuse",
+            "artifact_name": "Create Feature Branch - Allow Branch Reuse",
+            "sequence": 4,
+            "is_required": false,
+            "activity_field_key": "allow_reuse",
+            "resolution_type": "expression",
+            "value_expression": true
+          }
+        ],
+        "outputs": [
+          {
+            "lineage_id": "out-branch-wd",
+            "artifact_lineage_id": "art-branch-wd",
+            "artifact_name": "Create Feature Branch - Working Directory",
+            "sequence": 0,
+            "activity_field_key": "working_directory",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-branch-name",
+            "artifact_lineage_id": "art-branch-name",
+            "artifact_name": "Create Feature Branch - Branch Name",
+            "sequence": 1,
+            "activity_field_key": "branch_name",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-branch-repo-key",
+            "artifact_lineage_id": "art-branch-repo-key",
+            "artifact_name": "Create Feature Branch - Repository Key",
+            "sequence": 2,
+            "activity_field_key": "repo_key",
+            "is_passthrough": false
+          }
+        ],
+        "metrics": []
+      },
+      {
+        "lineage_id": "step-code",
+        "name": "Gate Probe Code",
+        "description": "One mutating agent step so the readiness gate runs",
+        "executor_type": "AI",
+        "executor_actor_role": null,
+        "accountable_actor_role": null,
+        "is_entry_point": false,
+        "is_exit_point": true,
+        "parent_lineage_id": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "integration_source_system_id": null,
+        "integration_source_system_nm": null,
+        "catalog_activity_key": "op_anthropic_develop_code",
+        "abstract_key": null,
+        "execution_type": "agent",
+        "config_json": {
+          "max_turns": 40,
+          "timeout_seconds": 900,
+          "allowed_tools": [
+            "Read",
+            "Write",
+            "Edit",
+            "Bash",
+            "Glob",
+            "Grep"
+          ]
+        },
+        "agent_process_key": null,
+        "agent_skills": [],
+        "chat_allowed_platform_actions": [],
+        "execution_mode": null,
+        "step_prompt": null,
+        "trigger_type": null,
+        "trigger_config": null,
+        "task_type": null,
+        "chat_prompt_key": null,
+        "chat_agent_activity_key": null,
+        "assignment_mode": null,
+        "assignment_step_input_key": null,
+        "source_pattern_key": null,
+        "sla_policy": null,
+        "step_timeout_minutes": null,
+        "router_branches": null,
+        "router_default_outcome": null,
+        "router_on_error": null,
+        "split_config": null,
+        "split_scope_id": null,
+        "transform_config": null,
+        "inputs": [
+          {
+            "lineage_id": "in-code-task",
+            "artifact_lineage_id": "art-code-task",
+            "artifact_name": "Gate Probe Code - Task",
+            "sequence": 0,
+            "is_required": true,
+            "activity_field_key": "task",
+            "resolution_type": "expression",
+            "value_expression": "Do exactly these three things and nothing else. 1) Write a file named GATE_PROBE.md at the repository root containing the single line: gate probe. 2) Commit only that file with the message: gate probe. 3) Immediately call the complete_step tool with a one-sentence summary and stop. Do not read other files, do not run the build or tests, do not inspect the repository."
+          },
+          {
+            "lineage_id": "in-code-wd",
+            "artifact_lineage_id": "art-branch-wd",
+            "artifact_name": "Create Feature Branch - Working Directory",
+            "sequence": 1,
+            "is_required": true,
+            "activity_field_key": "working_directory",
+            "resolution_type": "manual",
+            "value_expression": null
+          },
+          {
+            "lineage_id": "in-code-branch",
+            "artifact_lineage_id": "art-branch-name",
+            "artifact_name": "Create Feature Branch - Branch Name",
+            "sequence": 2,
+            "is_required": false,
+            "activity_field_key": "branch_name",
+            "resolution_type": "manual",
+            "value_expression": null
+          },
+          {
+            "lineage_id": "in-code-base-branch",
+            "artifact_lineage_id": "art-resolve-base-branch",
+            "artifact_name": "Resolve Read Workspace - Base Branch",
+            "sequence": 3,
+            "is_required": false,
+            "activity_field_key": "base_branch",
+            "resolution_type": "manual",
+            "value_expression": null
+          }
+        ],
+        "outputs": [
+          {
+            "lineage_id": "out-code-success",
+            "artifact_lineage_id": "art-code-success",
+            "artifact_name": "Gate Probe Code - Success",
+            "sequence": 0,
+            "activity_field_key": "success",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-code-output",
+            "artifact_lineage_id": "art-code-output",
+            "artifact_name": "Gate Probe Code - Output",
+            "sequence": 1,
+            "activity_field_key": "output",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-code-commit",
+            "artifact_lineage_id": "art-code-commit",
+            "artifact_name": "Gate Probe Code - Commit SHA",
+            "sequence": 2,
+            "activity_field_key": "commit_sha",
+            "is_passthrough": false
+          },
+          {
+            "lineage_id": "out-code-is-stuck",
+            "artifact_lineage_id": "art-code-is-stuck",
+            "artifact_name": "Gate Probe Code - Is Stuck",
+            "sequence": 3,
+            "activity_field_key": "is_stuck",
+            "is_passthrough": false
+          }
+        ],
+        "metrics": []
+      }
+    ],
+    "decisions": [],
+    "artifacts": [
+      {
+        "lineage_id": "art-resolve-repo-key",
+        "name": "Resolve Read Workspace - Repository Key",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-resolve-branch-base",
+        "name": "Resolve Read Workspace - Base Branch Override",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-resolve-wd",
+        "name": "Resolve Read Workspace - Working Directory",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-resolve-repo-key-out",
+        "name": "Resolve Read Workspace - Repository Key (out)",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-resolve-base-branch",
+        "name": "Resolve Read Workspace - Base Branch",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-resolve-base-sha",
+        "name": "Resolve Read Workspace - Base SHA",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-branch-label",
+        "name": "Create Feature Branch - Context Label",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-branch-ctx-id",
+        "name": "Create Feature Branch - Context ID",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-branch-allow-reuse",
+        "name": "Create Feature Branch - Allow Branch Reuse",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-branch-wd",
+        "name": "Create Feature Branch - Working Directory",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-branch-name",
+        "name": "Create Feature Branch - Branch Name",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-branch-repo-key",
+        "name": "Create Feature Branch - Repository Key",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-code-task",
+        "name": "Gate Probe Code - Task",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-code-success",
+        "name": "Gate Probe Code - Success",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-code-output",
+        "name": "Gate Probe Code - Output",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-code-commit",
+        "name": "Gate Probe Code - Commit SHA",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      },
+      {
+        "lineage_id": "art-code-is-stuck",
+        "name": "Gate Probe Code - Is Stuck",
+        "description": null,
+        "definition_type": "SIMPLE",
+        "template_source_id": null,
+        "template_download_url": null,
+        "schema_definition": null,
+        "entity_status": "CURRENT",
+        "is_removed": false
+      }
+    ],
+    "connections": [
+      {
+        "lineage_id": "conn-seq-1",
+        "from_step_lineage_id": "step-resolve",
+        "to_step_lineage_id": "step-branch",
+        "connection_type": "SEQUENCE",
+        "condition": null,
+        "condition_description": null,
+        "triggered_by_decision_lineage_id": null,
+        "triggered_by_outcome": null,
+        "triggered_by_router_lineage_id": null,
+        "triggered_by_router_outcome": null,
+        "expected_wait_time_minutes": null,
+        "expected_volume_pct": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "mappings": [],
+        "metrics": [],
+        "is_portal": false,
+        "target_process_key": null,
+        "target_process_name": null,
+        "source_process_key": null,
+        "source_process_name": null,
+        "process_connection_id": null
+      },
+      {
+        "lineage_id": "conn-seq-2",
+        "from_step_lineage_id": "step-branch",
+        "to_step_lineage_id": "step-code",
+        "connection_type": "SEQUENCE",
+        "condition": null,
+        "condition_description": null,
+        "triggered_by_decision_lineage_id": null,
+        "triggered_by_outcome": null,
+        "triggered_by_router_lineage_id": null,
+        "triggered_by_router_outcome": null,
+        "expected_wait_time_minutes": null,
+        "expected_volume_pct": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "mappings": [],
+        "metrics": [],
+        "is_portal": false,
+        "target_process_key": null,
+        "target_process_name": null,
+        "source_process_key": null,
+        "source_process_name": null,
+        "process_connection_id": null
+      },
+      {
+        "lineage_id": "conn-data-1",
+        "from_step_lineage_id": "step-resolve",
+        "to_step_lineage_id": "step-branch",
+        "connection_type": "DATA",
+        "condition": null,
+        "condition_description": null,
+        "triggered_by_decision_lineage_id": null,
+        "triggered_by_outcome": null,
+        "triggered_by_router_lineage_id": null,
+        "triggered_by_router_outcome": null,
+        "expected_wait_time_minutes": null,
+        "expected_volume_pct": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "mappings": [
+          {
+            "lineage_id": "map-1",
+            "step_output_lineage_id": "out-resolve-wd",
+            "step_input_lineage_id": "in-branch-wd",
+            "artifact_lineage_id": null,
+            "source_artifact_lineage_id": null,
+            "target_field_path": null
+          },
+          {
+            "lineage_id": "map-2",
+            "step_output_lineage_id": "out-resolve-repo-key",
+            "step_input_lineage_id": "in-branch-repo-key",
+            "artifact_lineage_id": null,
+            "source_artifact_lineage_id": null,
+            "target_field_path": null
+          }
+        ],
+        "metrics": [],
+        "is_portal": false,
+        "target_process_key": null,
+        "target_process_name": null,
+        "source_process_key": null,
+        "source_process_name": null,
+        "process_connection_id": null
+      },
+      {
+        "lineage_id": "conn-data-2",
+        "from_step_lineage_id": "step-branch",
+        "to_step_lineage_id": "step-code",
+        "connection_type": "DATA",
+        "condition": null,
+        "condition_description": null,
+        "triggered_by_decision_lineage_id": null,
+        "triggered_by_outcome": null,
+        "triggered_by_router_lineage_id": null,
+        "triggered_by_router_outcome": null,
+        "expected_wait_time_minutes": null,
+        "expected_volume_pct": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "mappings": [
+          {
+            "lineage_id": "map-3",
+            "step_output_lineage_id": "out-branch-wd",
+            "step_input_lineage_id": "in-code-wd",
+            "artifact_lineage_id": null,
+            "source_artifact_lineage_id": null,
+            "target_field_path": null
+          },
+          {
+            "lineage_id": "map-4",
+            "step_output_lineage_id": "out-branch-name",
+            "step_input_lineage_id": "in-code-branch",
+            "artifact_lineage_id": null,
+            "source_artifact_lineage_id": null,
+            "target_field_path": null
+          }
+        ],
+        "metrics": [],
+        "is_portal": false,
+        "target_process_key": null,
+        "target_process_name": null,
+        "source_process_key": null,
+        "source_process_name": null,
+        "process_connection_id": null
+      },
+      {
+        "lineage_id": "conn-data-3",
+        "from_step_lineage_id": "step-resolve",
+        "to_step_lineage_id": "step-code",
+        "connection_type": "DATA",
+        "condition": null,
+        "condition_description": null,
+        "triggered_by_decision_lineage_id": null,
+        "triggered_by_outcome": null,
+        "triggered_by_router_lineage_id": null,
+        "triggered_by_router_outcome": null,
+        "expected_wait_time_minutes": null,
+        "expected_volume_pct": null,
+        "entity_status": "CURRENT",
+        "is_removed": false,
+        "mappings": [
+          {
+            "lineage_id": "map-5",
+            "step_output_lineage_id": "out-resolve-base-branch",
+            "step_input_lineage_id": "in-code-base-branch",
+            "artifact_lineage_id": null,
+            "source_artifact_lineage_id": null,
+            "target_field_path": null
+          }
+        ],
+        "metrics": [],
+        "is_portal": false,
+        "target_process_key": null,
+        "target_process_name": null,
+        "source_process_key": null,
+        "source_process_name": null,
+        "process_connection_id": null
+      }
+    ],
+    "step_decisions": []
+  },
+  "identity": {
+    "contract_version": "1.0",
+    "process_id": "gate-probe",
+    "change_id": "gateprobe1",
+    "metric_contracts": [],
+    "reimport_endpoint": null
+  }
+}
