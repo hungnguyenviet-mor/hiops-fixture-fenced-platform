@@ -13,7 +13,14 @@ FROM registry:5000/hiops/worker-base-java8-gradle:vlocal-dev
 # operandai:fence:base:end
 
 # operandai:fence:toolchain:begin
-RUN apt-get install -y temurin-11-jdk
+# The base runs as USER worker, so apt needs root; and the Adoptium repo
+# index has to be fetched before temurin-11-jdk resolves. Without both,
+# this RUN exits 100 — which it did, because this fence had never been built.
+USER root
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends temurin-11-jdk \
+ && rm -rf /var/lib/apt/lists/*
+USER worker
 # operandai:fence:toolchain:end
 
 CMD ["./entrypoint.sh"]
