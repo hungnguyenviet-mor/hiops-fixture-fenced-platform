@@ -23,4 +23,9 @@ RUN apt-get update \
 USER worker
 # operandai:fence:toolchain:end
 
-CMD ["./entrypoint.sh"]
+# No CMD override: the base image already ends with
+#   CMD ["python", "-m", "app.temporal.unified_worker"]
+# The previous `CMD ["./entrypoint.sh"]` pointed at the base's DEV entrypoint,
+# which pip-installs -e /platform_lib — a path only the compose services bind-mount,
+# never a tenant container started by _deploy_local (deploy.py mounts skills and
+# workspaces only). That made every deployed tenant container crash-loop.
