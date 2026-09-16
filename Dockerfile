@@ -1,15 +1,31 @@
 # Fixture tenant Dockerfile for epic #841 — java8 base with a JDK 11 toolchain
 # RUN inside the toolchain fence (D-841-019's fixture shape).
 #
-# The base points at the compose registry, not ghcr: the operator's own token
-# gets 403 Forbidden on ghcr.io/operandai/hiops/worker-base-java8-gradle, so
-# that image is unreachable from this stack by authorization, not by login
-# (L-490). `registry:5000/hiops/worker-base[-variant]:<tag>` is a form
-# prepare_source's FROM_ALLOWLIST explicitly permits for local dev, and it
-# keeps the `-java8-gradle` suffix so worker_profile still resolves to
-# java8-gradle — item 14's fixture shape is unchanged.
+# The base points at ghcr's stand-in in the LOCAL registry: the operator's own
+# token gets 403 Forbidden on ghcr.io/operandai/hiops/worker-base-java8-gradle,
+# so that image is unreachable from this stack by authorization, not by login
+# (L-490). The `-java8-gradle` suffix is kept so worker_profile still resolves
+# to java8-gradle — item 14's fixture shape is unchanged.
+#
+# WHY `localhost:5555` AND NOT `registry:5000` — and what it costs.
+# Two different daemons build this file and they do not share a resolver:
+#   * the toolchain-amendment VERIFICATION build is a plain `docker build`
+#     subprocess (toolchain_amendment_activities._run_local_docker_build) on the
+#     platform worker, which reaches the HOST daemon through the mounted
+#     socket. The host has no compose DNS, so `registry:5000` fails with
+#     `dial tcp: lookup registry: no such host` — measured, not assumed.
+#     `localhost:5555` is the registry's published host port and resolves.
+#   * the real TENANT IMAGE build runs in buildkitd, a container ON the compose
+#     network, where the reverse is true: `registry:5000` resolves and
+#     `localhost:5555` is buildkitd itself.
+# No single string satisfies both, so this fixture picks the one the amendment
+# path needs. The cost is real and is not hidden: with this FROM, a tenant image
+# build of this repo stops at prepare_source's FROM_ALLOWLIST, which permits
+# `registry:<port>/hiops` and not `localhost:<port>/hiops`. That allowlist is a
+# security property and was deliberately left alone rather than widened for a
+# fixture's convenience.
 # operandai:fence:base:begin
-FROM registry:5000/hiops/worker-base-java8-gradle:vlocal-dev
+FROM localhost:5555/hiops/worker-base-java8-gradle:vlocal-dev
 # operandai:fence:base:end
 
 # operandai:fence:toolchain:begin
