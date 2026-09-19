@@ -25,7 +25,7 @@
 # security property and was deliberately left alone rather than widened for a
 # fixture's convenience.
 # operandai:fence:base:begin
-FROM localhost:5555/hiops/worker-base-java8-gradle:vlocal-dev
+FROM registry:5000/hiops/worker-base-java8-gradle:vlocal-dev
 # operandai:fence:base:end
 
 # operandai:fence:toolchain:begin
